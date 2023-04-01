@@ -21,12 +21,13 @@
             </li>
             </ul>
             <form class="d-flex" role="search">
-            <button class="btn btn-outline-light" type="submit">Log in</button>
+            <a href="login" class="btn btn-outline-light" type="submit">Log in</a>
             </form>
         </div>
         </div>
     </nav>
     <div class="container">
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
         @yield('content')
     </div>
 </body>
