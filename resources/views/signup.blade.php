@@ -1,13 +1,22 @@
 @extends('layout')
 @section('title') Login @endsection
 @section('content')
-<form method="post" action="/login">
+<form method="post" action="/signup">
     @csrf
     <div class="col-md-6 login-form text-center">
         <h2 style="color: #a31aff">Signup Form</h2><hr>
-        <input type="text" name="email "placeholder="Email" class="form-control" required><br>
-        <input type="text" name="username "placeholder="Username" class="form-control" required><br>
-        <input type="password" name="pass" id="pass" placeholder="Password" class="form-control" required><br>
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach($errors->all() as $error)
+                    <li>{{$error}}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <input type="email" name="email"placeholder="Email" class="form-control" required><br>
+        <input type="text" name="username"placeholder="Username" class="form-control" required><br>
+        <input type="password" name="password" id="pass" placeholder="Password" class="form-control" required><br>
         <input type="password"  id="confirm_pass" placeholder="Confirm password" class="form-control" required>
         <span id="match_pass" style="color: red; visibility:hidden;">Please make sure your passwords match</span><br><br>
         <button id="btn_submit" class="btn btn-purple" type="submit" disabled="true">Signup</button><br>
