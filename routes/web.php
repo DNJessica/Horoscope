@@ -18,3 +18,10 @@ Route::get('/', function () {
 })->name('home');
 
 Route::match(array('GET','POST'),'/login', 'UserController@login')->name('login');
+
+Route::get('/logout', function () {
+    if(session()->has('user_id')){
+        session()->pull('user_id');
+    }
+    return redirect()->route('home');
+})->name('logout');
