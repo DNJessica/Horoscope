@@ -1,0 +1,63 @@
+body{
+    background: linear-gradient(white, #e0b3ff) fixed;
+    height:100%"
+}
+
+hr{
+    height:2px;
+    border-width:0;
+    background-color:#a31aff;
+    margin-bottom: 30px;
+}
+
+.nav-gradient{
+    background: linear-gradient(#c35bff, #a31aff);
+    box-shadow: 0px 7px 5px #e0b3ff;
+}
+
+.login-form{
+    background-color: white;
+    margin:auto;
+    margin-top: 10%;
+    padding: 30px 10px;
+    border-radius: 10px;
+    box-shadow: 7px 7px 5px #e0b3ff;
+}
+
+.btn-purple{
+    background-color: #e0b3ff;
+    border-color: #c35bff;
+}
+.btn-purple:hover{
+    background-color: #c35bff;
+    border-color: #c35bff;
+}
+
+.form-right{
+    float: right;
+    width: 90%;
+}
+
+.signup-link{
+    color: #c35bff;
+    text-decoration: none;
+}
+
+.decoration{
+    position: fixed;
+    height: 30vh;
+    width: auto;
+    bottom: 40px;
+    left: 40px;
+    z-index: -1;
+} 
+ .right{
+    left: auto;
+    right: 40px;
+ }
+
+ @media all and (max-device-width: 480px){
+    .right{
+        display: none;
+    }
+ }
