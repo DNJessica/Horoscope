@@ -25,3 +25,5 @@ Route::get('/logout', function () {
     }
     return redirect()->route('home');
 })->name('logout');
+
+Route::match(array('GET','POST'),'/signup', 'UserController@signup')->name('signup');
