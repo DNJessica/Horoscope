@@ -27,3 +27,7 @@ Route::get('/logout', function () {
 })->name('logout');
 
 Route::match(array('GET','POST'),'/signup', 'UserController@signup')->name('signup');
+
+Route::match(array('GET','POST'),'/signup/details', 'UserController@signup_details')->name('signup_details');
+
+Route::match(array('GET','POST'),'/signup/verification', 'UserController@signup_verification')->name('signup_verification');

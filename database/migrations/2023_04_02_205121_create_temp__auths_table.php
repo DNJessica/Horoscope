@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('username');
             $table->string('pass');
             $table->string('verification_code');
+            $table->string('name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->dateTime('birth_date')->nullable();
         });
     }
 
