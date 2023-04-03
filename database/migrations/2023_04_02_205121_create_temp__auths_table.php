@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('last_name')->nullable();
             $table->dateTime('birth_date')->nullable();
+            $table->boolean('code_sent')->nullable();
         });
     }
 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use App\Models\Login;
 use App\Models\Temp_Auth;
+use App\Models\User_Data;
 use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
@@ -31,7 +32,7 @@ class UserController extends Controller
             $login = Login::where('email', $username)->first();
             if($login){
                 if($login->pass === md5($pass)){
-                    $request->session()->put('user_id', $login->id);
+                    $login->session()->put('user_id', $login->id);
                     return redirect()->route('home');
                 } 
             } 
@@ -98,15 +99,25 @@ class UserController extends Controller
             if(session()->has('temp_id')){
                 $temp_user = Temp_Auth::find(session('temp_id'));
                 if($temp_user->verification_code === $request->input('code')){
-                    // $login = new Login();
-                    // $login->email = $temp_user->email;
-                    // $login->pass = $temp_user->pass;
-                    // $login->username = $temp_user->username;
-                    // $login->save();
-                    // $login = Login::where('email', $temp_user->email);
-                    // if($login){
-
-                    // }
+                    $login = new Login();
+                    $login->email = $temp_user->email;
+                    $login->pass = $temp_user->pass;
+                    $login->username = $temp_user->username;
+                    $login->save();
+                    $login = Login::where('email', $temp_user->email)->first();
+                    if($login){
+                        session()->put('user_id', $login->id);
+                        $user = new User_Data();
+                        $user->login_id = $login->id;
+                        $user->name = $temp_user->name; 
+                        $user->last_name = $temp_user->last_name;
+                        $user->birth_date = $temp_user->birth_date;
+                        $user->zodiac = $this->get_zodiac($temp_user->birth_date);
+                        $user->save();
+                        session()->pull('temp_id');
+                        $temp_user->delete();
+                        return redirect()->route('home');
+                    }
                 } else {
                     throw ValidationException::withMessages(['verification_error' => 'verification code is incorrect. Please try again']);
                 }
@@ -115,10 +126,34 @@ class UserController extends Controller
             }
         }
         $temp_user = Temp_Auth::find(session('temp_id'));
-        Mail::to($temp_user->email)->send(new Verification($temp_user->verification_code)); 
+        if(!$temp_user->code_sent){
+            Mail::to($temp_user->email)->send(new Verification($temp_user->verification_code)); 
+            $temp_user->code_sent = true;
+            $temp_user->save();
+        }
         return view('signup_verification');
        
     }
+
+    function get_zodiac($birthdate) {
+
+           $zodiac = '';
+           list ($year, $month, $day) = explode ('-', $birthdate);
+           if ( ( $month == 3 && $day > 20 ) || ( $month == 4 && $day < 20 ) ) { $zodiac = "Aries"; }
+           elseif ( ( $month == 4 && $day > 19 ) || ( $month == 5 && $day < 21 ) ) { $zodiac = "Taurus"; }
+           elseif ( ( $month == 5 && $day > 20 ) || ( $month == 6 && $day < 21 ) ) { $zodiac = "Gemini"; }
+           elseif ( ( $month == 6 && $day > 20 ) || ( $month == 7 && $day < 23 ) ) { $zodiac = "Cancer"; }
+           elseif ( ( $month == 7 && $day > 22 ) || ( $month == 8 && $day < 23 ) ) { $zodiac = "Leo"; }
+           elseif ( ( $month == 8 && $day > 22 ) || ( $month == 9 && $day < 23 ) ) { $zodiac = "Virgo"; }
+           elseif ( ( $month == 9 && $day > 22 ) || ( $month == 10 && $day < 23 ) ) { $zodiac = "Libra"; }
+           elseif ( ( $month == 10 && $day > 22 ) || ( $month == 11 && $day < 22 ) ) { $zodiac = "Scorpio"; }
+           elseif ( ( $month == 11 && $day > 21 ) || ( $month == 12 && $day < 22 ) ) { $zodiac = "Sagittarius"; }
+           elseif ( ( $month == 12 && $day > 21 ) || ( $month == 1 && $day < 20 ) ) { $zodiac = "Capricorn"; }
+           elseif ( ( $month == 1 && $day > 19 ) || ( $month == 2 && $day < 19 ) ) { $zodiac = "Aquarius"; }
+           elseif ( ( $month == 2 && $day > 18 ) || ( $month == 3 && $day < 21 ) ) { $zodiac = "Pisces"; }
+
+         return $zodiac;
+        }
 
 
     private function verif_code(){
