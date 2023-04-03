@@ -32,7 +32,7 @@ class UserController extends Controller
             $login = Login::where('email', $username)->first();
             if($login){
                 if($login->pass === md5($pass)){
-                    $login->session()->put('user_id', $login->id);
+                    $request->session()->put('user_id', $login->id);
                     return redirect()->route('home');
                 } 
             } 
@@ -106,7 +106,7 @@ class UserController extends Controller
                     $login->save();
                     $login = Login::where('email', $temp_user->email)->first();
                     if($login){
-                        session()->put('user_id', $login->id);
+                        $request->session()->put('user_id', $login->id);
                         $user = new User_Data();
                         $user->login_id = $login->id;
                         $user->name = $temp_user->name; 
