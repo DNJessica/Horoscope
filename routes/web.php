@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::match(array('GET','POST'),'/', 'IndexController@index')->name('home');
 
 Route::match(array('GET','POST'),'/login', 'UserController@login')->name('login');
 
