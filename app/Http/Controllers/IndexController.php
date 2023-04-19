@@ -26,7 +26,7 @@ class IndexController extends Controller
     public function index(){
         $horoscope_today = Horoscope::where('created_at', '>=', date('Y-m-d').' 00:00:00')->first();
         if($horoscope_today){
-            return view('home');
+            return view('home', ["horoscope" => $horoscope_today]);
         }
         $curl = curl_init();
 
