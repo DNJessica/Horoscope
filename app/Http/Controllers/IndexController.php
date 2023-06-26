@@ -66,7 +66,7 @@ class IndexController extends Controller
 
         curl_close($curl);
 
-        return view('home');
+        return view('home', ["horoscope" => $horoscope]);
     }
     
 }

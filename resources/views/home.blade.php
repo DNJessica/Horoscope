@@ -7,7 +7,7 @@
 
 <div class="container-fluid pt-5 px-3 px-sm-5 my-5 text-center">
     <h4 class="mb-5 font-weight-bold">Horoscope for today</h4>
-    <?php if ( $horoscope ) { ?> 
+    @if($horoscope)
     <div class="owl-carousel owl-theme">
         <div class="item first prev">
           <div class="card border-0 py-3 px-4">
@@ -118,7 +118,7 @@
           </div>
         </div>
     </div>
-    <?php } ?>
+    @endif
     <a href="https://www.flaticon.com/free-icons/libra" title="libra icons">images by  max.icons - Flaticon</a>
 </div>
 <script type="text/javascript">

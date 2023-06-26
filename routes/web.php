@@ -29,3 +29,4 @@ Route::match(array('GET','POST'),'/signup', 'UserController@signup')->name('sign
 Route::match(array('GET','POST'),'/signup/details', 'UserController@signup_details')->name('signup_details');
 
 Route::match(array('GET','POST'),'/signup/verification', 'UserController@signup_verification')->name('signup_verification');
+Route::match(array('GET','POST'),'/settings/{id}', 'UserController@settings')->name('settings');

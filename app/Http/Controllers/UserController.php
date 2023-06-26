@@ -113,6 +113,7 @@ class UserController extends Controller
                         $user->last_name = $temp_user->last_name;
                         $user->birth_date = $temp_user->birth_date;
                         $user->zodiac = $this->get_zodiac($temp_user->birth_date);
+                        $user->email_agree = true;
                         $user->save();
                         session()->pull('temp_id');
                         $temp_user->delete();
@@ -133,6 +134,28 @@ class UserController extends Controller
         }
         return view('signup_verification');
        
+    }
+
+    public function settings($id, Request $request){
+        $user = User_Data::where('login_id', $id)->first();
+        if($user){
+            if ($request->isMethod('post')) {
+                $user->name = $request->input('name');
+                $user->last_name = $request->input('last_name');
+                $user->birth_date = $request->input('birthdate');
+                if($request->input('email_agree'))
+                {
+                    $user->email_agree= true;
+                } else {
+                    $user->email_agree= false;
+                }
+                $user->save();
+                return redirect()->route('home');
+            }
+            return view('settings', ["user" => $user]);
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     function get_zodiac($birthdate) {

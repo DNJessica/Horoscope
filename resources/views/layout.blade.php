@@ -6,30 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
 </head>
 <body class="text-dark">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top nav-gradient">
         <div class="container-fluid">
-        <img src="https://cdn-icons-png.flaticon.com/32/8062/8062855.png" alt="Horoscope">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
-            <li class="nav-item">
-                <a href="/" class="nav-link active" aria-current="page">Home</a>
-            </li>
-            </ul>
-            @if(session()->has('user_id'))
-                <form class="d-flex" role="search">
-                <a href="logout" class="btn btn-outline-light" type="submit">Log out</a>
-                </form>
-            @else
-                <form class="d-flex" role="search">
-                <a href="login" class="btn btn-outline-light" type="submit">Log in</a>
-                </form>
-            @endif    
-        </div>
+            <img src="https://cdn-icons-png.flaticon.com/32/8062/8062855.png" alt="Horoscope">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <a href="/" class="nav-link active" aria-current="page">Home</a>
+                </li>
+                </ul>
+                @if(session()->has('user_id'))
+                    <form class="d-flex me-2" role="search">
+                        <a href="/settings/{{session('user_id')}}" class="btn btn-outline-light" type="submit"><i class="bi-gear-fill icon-white"></i> Settings</a>
+                    </form></div>
+                    <form class="d-flex" role="search">
+                        <a href="logout" class="btn btn-outline-light" type="submit">Log out</a>
+                    </form>
+                @else
+                    <form class="d-flex" role="search">
+                    <a href="login" class="btn btn-outline-light" type="submit">Log in</a>
+                    </form>
+                @endif    
+            </div>
         </div>
     </nav>
     <div class="container">

@@ -16,8 +16,9 @@ return new class extends Migration
             $table->integer('login_id');
             $table->string('name');
             $table->string('last_name');
-            $table->dateTime('birth_date');
+            $table->date('birth_date');
             $table->string('zodiac');
+            $table->boolean('email_agree');
         });
     }
 
