@@ -35,9 +35,9 @@ class UserController extends Controller
                     $request->session()->put('user_id', $login->id);
                     return redirect()->route('home');
                 } 
-            } 
-            
-            return redirect()->route('home');
+            } else {
+                throw ValidationException::withMessages(['login_error' => 'Username or passwor is incorrect. Please try again.']);
+            }
         }
         return view('login');
     }
