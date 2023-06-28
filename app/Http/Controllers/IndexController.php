@@ -42,7 +42,7 @@ class IndexController extends Controller
                 CURLOPT_CUSTOMREQUEST => "GET",
                 CURLOPT_HTTPHEADER => [
                     "X-RapidAPI-Host: horoscope-astrology.p.rapidapi.com",
-                    "X-RapidAPI-Key: 93571833damshc388b21d40a5baap16c71bjsn2549a09ed19e"
+                    "X-RapidAPI-Key: ".config('services.api.key')
                 ],
             ]);
 
