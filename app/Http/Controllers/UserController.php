@@ -64,9 +64,6 @@ class UserController extends Controller
             $temp_auth->username = $username;
             $temp_auth->pass = md5($pass);
             $temp_auth->verification_code = $this->verif_code();
-            // $temp_auth->name = null;
-            // $temp_auth->last_name = null;
-            // $temp_auth->birth_date = null;
             $temp_auth->save();
             $temp= Temp_Auth::where('email', $email)->first();
             if($temp){

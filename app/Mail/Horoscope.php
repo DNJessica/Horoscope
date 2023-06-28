@@ -9,18 +9,18 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class Verification extends Mailable implements ShouldQueue
+class Horoscope extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public $code;
+    public $horoscope;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($code)
+    public function __construct($horoscope)
     {
-        $this->code = $code;
+        $this->horoscope = $horoscope;
     }
 
     /**
@@ -29,7 +29,7 @@ class Verification extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Verification',
+            subject: 'Horoscope',
         );
     }
 
@@ -39,7 +39,7 @@ class Verification extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.verification',
+            markdown: 'emails.horoscope',
         );
     }
 
