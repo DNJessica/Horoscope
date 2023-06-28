@@ -17,7 +17,6 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->call(function () {
-          //  return true;
             $horoscope = [
                 'Aries' => null,
                 'Taurus' => null,
@@ -73,7 +72,6 @@ class Kernel extends ConsoleKernel
 
 
         $schedule->call(function () {
-            return true;
         $horoscope = Horoscope::where('created_at', '>=', date('Y-m-d').' 00:00:00')->first();
         $users = DB::table('logins')
             ->join('user__data', 'logins.id', '=', 'user__data.login_id')

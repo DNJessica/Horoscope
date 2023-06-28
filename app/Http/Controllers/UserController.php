@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Mail\Verification;
+use App\Mail\Horoscope as HoroscopeMail;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use App\Models\Login;
+use App\Models\Horoscope;
 use App\Models\Temp_Auth;
 use App\Models\User_Data;
 use Illuminate\Support\Facades\Mail;
@@ -114,6 +116,8 @@ class UserController extends Controller
                         $user->save();
                         session()->pull('temp_id');
                         $temp_user->delete();
+                        $horoscope = Horoscope::where('created_at', '>=', date('Y-m-d').' 00:00:00')->first();
+                        Mail::to($login->email)->later(120, new HoroscopeMail($horoscope->{$user->zodiac})); 
                         return redirect()->route('home');
                     }
                 } else {
