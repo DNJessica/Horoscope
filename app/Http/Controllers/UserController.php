@@ -138,6 +138,9 @@ class UserController extends Controller
     }
 
     public function settings($id, Request $request){
+        if(session('user_id') != $id){
+            return redirect()->route('home');
+        }
         $user = User_Data::where('login_id', $id)->first();
         if($user){
             if ($request->isMethod('post')) {
