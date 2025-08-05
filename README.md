@@ -1,66 +1,105 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🔮 HoroscopeApp — Laravel Horoscope Web App
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel-based horoscope viewer that fetches daily zodiac predictions from a public API and displays them in a stylish and intuitive interface.
 
-## About Laravel
+## 👩‍💻 Developer’s Note
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This project was built by Dzhesika Nimets as a practical exploration of Laravel fundamentals, cURL-based API integration, and Blade templating. The full setup — from environment configuration to final deployment — was done manually, including fixing dependency issues and database connectivity.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+✅ Highlights of what was implemented:
+- Setup of full Laravel backend environment using XAMPP
+- cURL integration with the RapidAPI Horoscope API
+- Error handling for API requests (e.g., invalid or missing response structure)
+- Custom Blade UI with image carousel
+- Testing across different local machines to debug environment-specific issues
+- Logging of daily horoscopes into the database
+- Automatic daily email sending of horoscopes via Laravel scheduler (cron job)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🧩 Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- 🚀 Real-time horoscope retrieval via RapidAPI
+- 👤 User authentication (login & registration)
+- 📅 Daily forecast for each zodiac sign
+- 🧠 Blade templating and Laravel routing
+- 🎨 Carousel-based responsive UI
+- 🛠️ Full environment setup (MySQL, migrations, artisan commands)
+- 🔁 Cron-based scheduled tasks (logging & emailing horoscopes)
+- 📧 Email delivery via Laravel Mail
+- ❌ Error fallback when API data is incomplete
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🛠 Tech Stack
 
-## Laravel Sponsors
+- PHP 8.2+
+- Laravel 10
+- MySQL (via XAMPP)
+- Blade
+- cURL
+- RapidAPI (horoscope endpoint)
+- Laravel Scheduler & Mail
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+---
 
-### Premium Partners
+## 🔧 Local Installation
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+```bash
+git clone https://github.com/your-username/horoscope-app.git
+cd horoscope-app
 
-## Contributing
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan serve
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Then open `http://localhost:8000` in your browser.
 
-## Code of Conduct
+Make sure to update `.env` with your RapidAPI and Mail credentials:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```env
+API_KEY=your_api_key_here
 
-## Security Vulnerabilities
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=your_username
+MAIL_PASSWORD=your_password
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS=horoscope@app.test
+MAIL_FROM_NAME="HoroscopeApp"
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+To enable scheduled email delivery and logging, set up the Laravel cron scheduler:
 
-## License
+```
+* * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 🌍 API Used
+
+- **Provider:** RapidAPI  
+- **Endpoint:** `https://horoscope-astrology.p.rapidapi.com`  
+- **Data Format:** JSON  
+- **Auth:** Header-based API key
+
+---
+
+
+
+## 📸 Preview
+
+![Homepage](screenshots/homepage.png)
+
+---
+
+
+## 🙌 Credits
+
+- Horoscope API by [RapidAPI](https://rapidapi.com/)
+- Icon design by [max.icons on Flaticon](https://www.flaticon.com/authors/maxicons)
